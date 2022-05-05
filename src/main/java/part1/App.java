@@ -5,6 +5,18 @@ package part1;
 
 import java.util.ArrayList;
 
+import static spark.Spark.get;
+import static spark.Spark.port;
+import static spark.Spark.post;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import spark.ModelAndView;
+import spark.template.mustache.MustacheTemplateEngine;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class App {
     public String getGreeting() {
         return "Hello world.";
@@ -12,13 +24,48 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
+
+        Logger logger = LogManager.getLogger(App.class);
+        logger.error("hata veriyon");
+
+        get("/", (req, res) -> "hello !!");
+        get("/compute",
+                (rq, rs) -> {
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("result", "not computed yet");
+                    return new ModelAndView(map, "compute.mustache");
+                },
+                new MustacheTemplateEngine());
+
+        post("/compute", (req, res) -> {
+            String input1 = req.queryParams("input1");
+            java.util.Scanner sayi1 = new java.util.Scanner(input1);
+            sayi1.useDelimiter("[;\r\n]+");
+            java.util.ArrayList<Integer> iArrayList = new java.util.ArrayList<Integer>();
+            while (sayi1.hasNext()) {
+                int value = Integer.parseInt(sayi1.next().replaceAll("\\s", ""));
+                iArrayList.add(value);
+            }
+            sayi1.close();
+            System.out.println(iArrayList);
+
+            String input2 = req.queryParams("input2").replaceAll("\\s", "");
+            int input2AsInt = Integer.parseInt("input2");
+
+            boolean result = App.search(iArrayList, input2AsInt);
+            Map<String, Boolean> map = new HashMap<String, Boolean>();
+            map.put("result", result);
+            return new ModelAndView(map, "compute.mustache");
+        }, new MustacheTemplateEngine());
     }
 
     public static boolean search(ArrayList<Integer> array, int e) {
         System.out.println("inside search");
-        if (array == null) return false;
+        if (array == null)
+            return false;
         for (int elt : array) {
-        if (elt == e) return true;
+            if (elt == e)
+                return true;
         }
         return false;
     }
