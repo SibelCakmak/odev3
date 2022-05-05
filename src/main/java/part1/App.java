@@ -11,6 +11,9 @@ import static spark.Spark.post;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.sound.sampled.Port;
+
 import spark.ModelAndView;
 import spark.template.mustache.MustacheTemplateEngine;
 
@@ -27,6 +30,10 @@ public class App {
 
         Logger logger = LogManager.getLogger(App.class);
         logger.error("hata veriyon");
+
+        int port = Integer.parseInt(System.getenv("PORT"));
+        port(port);
+        logger.error("Curret port number" + port);
 
         get("/", (req, res) -> "hello !!");
         get("/compute",
