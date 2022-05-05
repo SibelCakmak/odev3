@@ -25,12 +25,14 @@ public class App {
         return "Hello world.";
     }
 
-    public static boolean search(ArrayList<Integer> array, int e) {
-        System.out.println("inside search");
+    public static boolean search(ArrayList<Integer> array, int sayi1,int sayi2, int sayi3) {
+        System.out.println("girdilerin toplamı dizide var mı?");
+
+        int toplam = sayi1 + sayi2 + sayi3;
         if (array == null)
             return false;
         for (int elt : array) {
-            if (elt == e)
+            if (elt == toplam)
                 return true;
         }
         return false;
@@ -61,7 +63,11 @@ public class App {
             System.out.println(inputList);
             String input2 = req.queryParams("input2").replaceAll("\\s", "");
             int input2AsInt = Integer.parseInt(input2);
-            boolean result = App.search(inputList, input2AsInt);
+            String input3 = req.queryParams("input2").replaceAll("\\s", "");
+            int input3AsInt = Integer.parseInt(input2);
+            String input4 = req.queryParams("input2").replaceAll("\\s", "");
+            int input4AsInt = Integer.parseInt(input2);
+            boolean result = App.search(inputList, input2AsInt, input3AsInt, input4AsInt);
             Map<String, Boolean> map = new HashMap<String, Boolean>();
             map.put("result", result);
             return new ModelAndView(map, "compute.mustache");
