@@ -47,7 +47,7 @@ public class App {
         int port = Integer.parseInt(System.getenv("PORT"));
         port(port);
         logger.error("Curret port number" + port);
-        get("/", (req, res) -> "Hello, World");
+        get("/", (req, res) -> "hazırladığım 3. ödevin giriş sayfasına hoşgeldiniz");
         post("/compute", (req, res) -> {
             // System.out.println(req.queryParams("input1"));
             // System.out.println(req.queryParams("input2"));
@@ -63,9 +63,9 @@ public class App {
             System.out.println(inputList);
             String input2 = req.queryParams("input2").replaceAll("\\s", "");
             int input2AsInt = Integer.parseInt(input2);
-            String input3 = req.queryParams("input2").replaceAll("\\s", "");
+            String input3 = req.queryParams("input3").replaceAll("\\s", "");
             int input3AsInt = Integer.parseInt(input2);
-            String input4 = req.queryParams("input2").replaceAll("\\s", "");
+            String input4 = req.queryParams("input4").replaceAll("\\s", "");
             int input4AsInt = Integer.parseInt(input2);
             boolean result = App.search(inputList, input2AsInt, input3AsInt, input4AsInt);
             Map<String, Boolean> map = new HashMap<String, Boolean>();

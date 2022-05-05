@@ -24,7 +24,7 @@ class AppTest {
 
     @Test
     public void testNotFound() {
-        ArrayList<Integer> array = new ArrayList<>(Arrays.asList(1, 2, 3, 4));
+        ArrayList<Integer> array = new ArrayList<>(Arrays.asList(1, 4, 3, 4));
         assertFalse(App.search(array, 5,6,7));
     }
 
